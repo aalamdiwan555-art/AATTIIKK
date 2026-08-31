@@ -76,18 +76,17 @@ fun PrivacyPolicyScreen(onBackClick: () -> Unit) {
                 Text("We collect minimal information necessary to provide our services:")
                 Text("• Board, Class, and Language preferences")
                 Text("• Test scores and practice history (stored locally)")
-                Text("• Email or phone number (only if you create an account)")
-            }
+                }
 
             PolicySection("2. How We Use Your Information") {
                 Text("Your information is used to:")
                 Text("• Personalize study content for your board and class")
                 Text("• Track your learning progress")
-                Text("• Sync data across devices (if logged in)")
+                Text("• Keep your preferences and progress available on this device")
             }
 
             PolicySection("3. Data Storage") {
-                Text("Most of your data is stored locally on your device. If you create an account, your data is synced to our secure servers.")
+                Text("Your study preferences, scores, and practice history are stored locally on your device. The app does not require an account.")
             }
 
             PolicySection("4. Children's Privacy") {
