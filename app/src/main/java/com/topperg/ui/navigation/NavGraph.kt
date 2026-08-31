@@ -1,15 +1,11 @@
 package com.topperg.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.topperg.ui.screens.auth.AuthScreen
 import com.topperg.ui.screens.chapter.ChapterScreen
 import com.topperg.ui.screens.home.HomeScreen
 import com.topperg.ui.screens.mcq.McqPracticeScreen
@@ -33,16 +29,12 @@ import com.topperg.ui.screens.subject.SubjectScreen
 import com.topperg.ui.screens.test.TestResultScreen
 import com.topperg.ui.screens.test.TestSetupScreen
 import com.topperg.ui.screens.test.TestTakingScreen
-import com.topperg.viewmodel.ProfileViewModel
 
 @Composable
 fun TopperGNavGraph(
     navController: NavHostController,
     startDestination: String = Screen.Splash.route
 ) {
-    val profileViewModel: ProfileViewModel = hiltViewModel()
-    val profile by profileViewModel.profile.collectAsState()
-
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -314,9 +306,6 @@ fun TopperGNavGraph(
                 onManageDownloads = {
                     navController.navigate(Screen.DownloadsManager.route)
                 },
-                onLoginLogout = {
-                    navController.navigate(Screen.Auth.route)
-                },
                 onAbout = {
                     navController.navigate(Screen.About.route)
                 },
@@ -330,17 +319,6 @@ fun TopperGNavGraph(
         composable(Screen.DownloadsManager.route) {
             DownloadsManagerScreen(
                 onBackClick = { navController.popBackStack() }
-            )
-        }
-
-        composable(Screen.Auth.route) {
-            AuthScreen(
-                onAuthSuccess = {
-                    navController.popBackStack()
-                },
-                onContinueAsGuest = {
-                    navController.popBackStack()
-                }
             )
         }
 
