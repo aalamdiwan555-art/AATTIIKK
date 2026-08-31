@@ -34,6 +34,4 @@ interface ProfileDao {
     @Query("UPDATE profile SET languageCode = :languageCode, languageName = :languageName, updatedAt = :timestamp WHERE id = 1")
     suspend fun updateLanguage(languageCode: String, languageName: String, timestamp: Long = System.currentTimeMillis())
 
-    @Query("UPDATE profile SET userId = :userId, isGuest = :isGuest, updatedAt = :timestamp WHERE id = 1")
-    suspend fun updateUser(userId: String?, isGuest: Boolean, timestamp: Long = System.currentTimeMillis())
 }
