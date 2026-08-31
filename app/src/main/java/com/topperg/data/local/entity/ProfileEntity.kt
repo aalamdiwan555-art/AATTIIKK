@@ -13,8 +13,8 @@ data class ProfileEntity(
     val languageCode: String = "en",
     val languageName: String = "English",
     val isOnboardingComplete: Boolean = false,
-    val userId: String? = null, // Supabase user ID if logged in
-    val isGuest: Boolean = true,
+    val userId: String? = null, // Retained for existing local database compatibility
+    val isGuest: Boolean = true, // Retained for existing local database compatibility
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis()
 )
