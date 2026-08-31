@@ -56,7 +56,6 @@ class ProfileViewModel @Inject constructor(
                 languageCode = languageCode,
                 languageName = languageName,
                 isOnboardingComplete = true,
-                isGuest = true
             )
             profileRepository.saveProfile(profile)
         }
