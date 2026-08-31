@@ -113,19 +113,6 @@
     <string name="contact">Contact</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="delete_data">Delete All Data</string>
-    <string name="logout">Logout</string>
-    <string name="login">Login</string>
-
-    <!-- Auth -->
-    <string name="continue_as_guest">Continue as Guest</string>
-    <string name="email_login">Email Login</string>
-    <string name="phone_login">Phone Login</string>
-    <string name="enter_email">Enter your email</string>
-    <string name="enter_phone">Enter your phone number</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="send_otp">Send OTP</string>
-    <string name="verify">Verify</string>
-    <string name="guest_warning">Continuing as guest means your data won't sync across devices.</string>
 
     <!-- Downloads -->
     <string name="downloads">Downloads</string>
