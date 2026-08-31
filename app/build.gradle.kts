@@ -11,14 +11,11 @@ fun configuredValue(name: String, fallback: String): String {
     return listOf(localValue, environmentValue).firstOrNull { !it.isNullOrBlank() } ?: fallback
 }
 
-val supabaseUrl = configuredValue("SUPABASE_URL", "https://your-project.supabase.co")
-val supabaseKey = configuredValue("SUPABASE_KEY", "your-anon-key")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -32,8 +29,6 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         // Values come from local.properties for local builds or environment variables in CI.
-        buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
-        buildConfigField("String", "SUPABASE_KEY", "\"$supabaseKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -103,14 +98,8 @@ dependencies {
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
-    // Supabase
-    implementation(libs.supabase.kt)
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
 
     // Serialization
-    implementation(libs.kotlinx.serialization.json)
 
     // Coil (Image loading)
     implementation(libs.coil.compose)

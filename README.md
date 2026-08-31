@@ -1,6 +1,6 @@
 # TopperG
 
-An Android study app for Indian school students (Class 1-12) supporting all state boards and regional languages.
+An offline-first Android study app for Indian school students (Class 1-12), supporting state boards and regional languages without requiring an online account or backend service.
 
 ## Features
 
@@ -11,7 +11,7 @@ An Android study app for Indian school students (Class 1-12) supporting all stat
 - **Test Mode**: Timed tests with auto-grading
 - **Previous Year Papers**: Filterable by year and subject
 - **Score History**: Track performance over time
-- **Offline Mode**: Download content for offline study
+- **Offline Mode**: Local Room database for studying without an account or connection
 - **Dark Mode**: Full dark theme support
 - **Ad-Supported**: AdMob integration with user-friendly placement rules
 
@@ -20,23 +20,18 @@ An Android study app for Indian school students (Class 1-12) supporting all stat
 - Kotlin
 - Jetpack Compose
 - Room (Local DB)
-- Supabase (Backend)
 - Hilt (DI)
 - AdMob (Ads)
 
 ## Setup
 
-1. Clone the repository
-2. For a local build, add your Supabase credentials to `local.properties` (this file is ignored by Git):
-   ```
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_KEY=your-anon-key
-   ```
-3. Sync project with Gradle
-4. Run on emulator or device
+1. Clone the repository.
+2. Open the project in Android Studio.
+3. Sync the project with Gradle.
+4. Run it on an emulator or Android device.
+
+No Supabase project, authentication credentials, or repository secrets are required. All app data is stored locally on the device.
 
 ## GitHub APK builds
 
-GitHub Actions is configured in `.github/workflows/android.yml`. Every push to `main` and every manual workflow run builds a debug APK and publishes it as a downloadable artifact named `TopperG-debug-apk`. Open the workflow run in GitHub and download the artifact from the **Artifacts** section.
-
-For live Supabase connectivity in GitHub Actions, optionally add repository Actions secrets named `SUPABASE_URL` and `SUPABASE_KEY`. If they are not configured, the APK still builds with safe placeholder values and remote content will be unavailable until the secrets are supplied.
+The workflow in `.github/workflows/android.yml` builds a debug APK whenever changes are pushed to `main`, and it can also be started manually from the repository Actions tab. After the run finishes, download `TopperG-debug-apk` from the workflow run Artifacts section.
