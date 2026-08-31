@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TopperG</string>
+    <string name="app_tagline">Study Smart, Score High</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">Welcome to TopperG</string>
+    <string name="onboarding_desc">Your personal study companion for classes 1-12</string>
+    <string name="permission_storage_title">Storage Access</string>
+    <string name="permission_storage_desc">We need storage access to save notes and study materials for offline use.</string>
+    <string name="permission_notification_title">Study Reminders</string>
+    <string name="permission_notification_desc">Allow notifications to receive daily study reminders and keep your streak going.</string>
+    <string name="select_board">Select Your Board</string>
+    <string name="select_class">Select Your Class</string>
+    <string name="select_language">Select Your Language</string>
+    <string name="continue_text">Continue</string>
+    <string name="finish">Finish</string>
+    <string name="skip">Skip</string>
+
+    <!-- Home -->
+    <string name="home_greeting">Welcome back!</string>
+    <string name="continue_studying">Continue Studying</string>
+    <string name="daily_streak">Daily Streak</string>
+    <string name="previous_year_papers">Previous Year Papers</string>
+    <string name="subjects">Subjects</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_saved">Saved</string>
+    <string name="nav_scores">Scores</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Subject & Chapter -->
+    <string name="chapters">Chapters</string>
+    <string name="notes_tab">Notes</string>
+    <string name="mcq_tab">MCQ Practice</string>
+    <string name="test_tab">Chapter Test</string>
+    <string name="progress">Progress</string>
+
+    <!-- Notes -->
+    <string name="font_size">Font Size</string>
+    <string name="tts_play">Play</string>
+    <string name="tts_pause">Pause</string>
+    <string name="tts_speed">Speed</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="share">Share</string>
+    <string name="tts_not_available">Text-to-Speech is not available for this language. Please install the voice pack from device settings.</string>
+
+    <!-- MCQ -->
+    <string name="question">Question</string>
+    <string name="of">of</string>
+    <string name="correct">Correct!</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="explanation">Explanation</string>
+    <string name="next_question">Next Question</string>
+    <string name="finish_practice">Finish Practice</string>
+    <string name="retry_missed">Retry Missed Only</string>
+    <string name="your_score">Your Score</string>
+    <string name="score_out_of">%1$d out of %2$d</string>
+
+    <!-- Test -->
+    <string name="test_setup">Test Setup</string>
+    <string name="select_scope">Select Scope</string>
+    <string name="single_chapter">Single Chapter</string>
+    <string name="full_subject">Full Subject</string>
+    <string name="custom_selection">Custom Selection</string>
+    <string name="duration">Duration</string>
+    <string name="minutes">minutes</string>
+    <string name="start_test">Start Test</string>
+    <string name="time_remaining">Time Remaining</string>
+    <string name="submit_test">Submit Test</string>
+    <string name="question_grid">Question Grid</string>
+    <string name="auto_submit_warning">Time's up! Your test has been auto-submitted.</string>
+    <string name="test_result">Test Result</string>
+    <string name="time_taken">Time Taken</string>
+    <string name="review_answers">Review Answers</string>
+
+    <!-- Papers -->
+    <string name="filter_year">Year</string>
+    <string name="filter_subject">Subject</string>
+    <string name="practice_as_test">Practice as Test</string>
+    <string name="view_paper">View Paper</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search notes, MCQs, papers…</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="clear_all">Clear All</string>
+    <string name="no_results">No results found</string>
+
+    <!-- Saved -->
+    <string name="saved_items">Saved Items</string>
+    <string name="no_saved">No saved items yet</string>
+    <string name="saved_notes">Notes</string>
+    <string name="saved_mcqs">MCQs</string>
+    <string name="saved_papers">Papers</string>
+
+    <!-- Score History -->
+    <string name="score_history">Score History</string>
+    <string name="performance">Performance</string>
+    <string name="strength_weakness">Strengths &amp; Weaknesses</string>
+    <string name="no_history">No test history yet</string>
+
+    <!-- Settings -->
+    <string name="change_board">Change Board</string>
+    <string name="change_class">Change Class</string>
+    <string name="change_language">Change Language</string>
+    <string name="manage_downloads">Manage Downloads</string>
+    <string name="study_reminder">Study Reminder</string>
+    <string name="tts_default_speed">TTS Default Speed</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="about">About</string>
+    <string name="contact">Contact</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_data">Delete All Data</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+
+    <!-- Auth -->
+    <string name="continue_as_guest">Continue as Guest</string>
+    <string name="email_login">Email Login</string>
+    <string name="phone_login">Phone Login</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="enter_phone">Enter your phone number</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="verify">Verify</string>
+    <string name="guest_warning">Continuing as guest means your data won't sync across devices.</string>
+
+    <!-- Downloads -->
+    <string name="downloads">Downloads</string>
+    <string name="download">Download</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="delete_download">Delete Download</string>
+    <string name="storage_used">Storage Used</string>
+    <string name="no_downloads">No downloads yet</string>
+
+    <!-- Ads -->
+    <string name="ad_label">Ad</string>
+    <string name="watch_ad_unlock">Watch ad to unlock</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_no_internet">No internet connection. Showing cached content.</string>
+    <string name="retry">Retry</string>
+    <string name="offline_mode">Offline Mode</string>
+
+    <!-- Misc -->
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="version">Version %1$s</string>
+</resources>
