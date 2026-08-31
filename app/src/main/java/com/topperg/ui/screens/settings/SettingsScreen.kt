@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -176,23 +177,6 @@ fun SettingsScreen(
                 )
             }
 
-            // Danger Zone
-            SettingsSection(title = "Danger Zone") {
-                SettingsItem(
-                    icon = Icons.AutoMirrored.Filled.Logout,
-                    title = "Logout",
-                    subtitle = "Sign out of your account",
-                    onClick = onLoginLogout,
-                    tint = MaterialTheme.colorScheme.error
-                )
-                SettingsItem(
-                    icon = Icons.Default.Delete,
-                    title = "Delete Account",
-                    subtitle = "Permanently delete your account and data",
-                    onClick = {},
-                    tint = MaterialTheme.colorScheme.error
-                )
-            }
         }
     }
 }
