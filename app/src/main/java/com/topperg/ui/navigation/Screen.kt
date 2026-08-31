@@ -49,7 +49,6 @@ sealed class Screen(val route: String) {
     object ScoreHistory : Screen("score_history")
     object Settings : Screen("settings")
     object DownloadsManager : Screen("downloads_manager")
-    object Auth : Screen("auth")
     object About : Screen("about")
     object PrivacyPolicy : Screen("privacy_policy")
 }
