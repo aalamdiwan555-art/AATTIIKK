@@ -12,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Brightness4
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
@@ -52,7 +51,6 @@ fun SettingsScreen(
     onChangeClass: () -> Unit,
     onChangeLanguage: () -> Unit,
     onManageDownloads: () -> Unit,
-    onLoginLogout: () -> Unit,
     onAbout: () -> Unit,
     onPrivacyPolicy: () -> Unit,
     onBackClick: () -> Unit,
