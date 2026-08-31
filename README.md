@@ -37,8 +37,6 @@ An Android study app for Indian school students (Class 1-12) supporting all stat
 
 ## GitHub APK builds
 
-The repository includes `android-workflow.yml`, a ready-to-use GitHub Actions workflow template. To enable automatic APK builds, copy it to `.github/workflows/android.yml` using GitHub's web editor, or authorize the GitHub connection with workflow-file permission.
+GitHub Actions is configured in `.github/workflows/android.yml`. Every push to `main` and every manual workflow run builds a debug APK and publishes it as a downloadable artifact named `TopperG-debug-apk`. Open the workflow run in GitHub and download the artifact from the **Artifacts** section.
 
-The workflow builds a debug APK and publishes it as a downloadable artifact named `TopperG-debug-apk`.
-
-For live Supabase connectivity in GitHub Actions, add repository Actions secrets named `SUPABASE_URL` and `SUPABASE_KEY`. If they are not configured, the build uses safe placeholder values and remote content will not load until the values are supplied.
+For live Supabase connectivity in GitHub Actions, optionally add repository Actions secrets named `SUPABASE_URL` and `SUPABASE_KEY`. If they are not configured, the APK still builds with safe placeholder values and remote content will be unavailable until the secrets are supplied.
