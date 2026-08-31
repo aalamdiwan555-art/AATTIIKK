@@ -5,8 +5,11 @@ val localProperties = Properties().apply {
     if (file.exists()) file.inputStream().use(::load)
 }
 
-fun configuredValue(name: String, fallback: String): String =
-    localProperties.getProperty(name) ?: providers.environmentVariable(name).orElse(fallback).get()
+fun configuredValue(name: String, fallback: String): String {
+    val localValue = localProperties.getProperty(name)
+    val environmentValue = providers.environmentVariable(name).orNull
+    return listOf(localValue, environmentValue).firstOrNull { !it.isNullOrBlank() } ?: fallback
+}
 
 val supabaseUrl = configuredValue("SUPABASE_URL", "https://your-project.supabase.co")
 val supabaseKey = configuredValue("SUPABASE_KEY", "your-anon-key")
