@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.topperg.ui.components.BannerAd
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun PaperViewScreen(
     paperId: String,
