@@ -66,6 +66,7 @@ import com.topperg.viewmodel.ProfileViewModel
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun NoteReaderScreen(
     chapterId: String,
@@ -134,6 +135,7 @@ fun NoteReaderScreen(
                     showBanner = true
                 }
             }
+            @Suppress("DEPRECATION")
             override fun onError(utteranceId: String?) {
                 isPlaying = false
             }
