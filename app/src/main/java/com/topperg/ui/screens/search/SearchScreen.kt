@@ -1,6 +1,7 @@
 package com.topperg.ui.screens.search
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -121,7 +122,7 @@ fun SearchScreen(
             } else {
                 // Search Results
                 Text(
-                    text = "Results for "$query"",
+                    text = "Results for \"$query\"",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(16.dp)
