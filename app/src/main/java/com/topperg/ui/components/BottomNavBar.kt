@@ -5,12 +5,12 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.TrendingUp
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -31,7 +31,7 @@ sealed class BottomNavItem(
     object Home : BottomNavItem(Screen.Home.route, "Home", Icons.Filled.Home, Icons.Outlined.Home)
     object Search : BottomNavItem(Screen.Search.route, "Search", Icons.Filled.Search, Icons.Outlined.Search)
     object Saved : BottomNavItem(Screen.Saved.route, "Saved", Icons.Filled.Bookmark, Icons.Outlined.BookmarkBorder)
-    object Scores : BottomNavItem(Screen.ScoreHistory.route, "Scores", Icons.Filled.TrendingUp, Icons.Outlined.TrendingUp)
+    object Scores : BottomNavItem(Screen.ScoreHistory.route, "Scores", Icons.AutoMirrored.Filled.TrendingUp, Icons.AutoMirrored.Outlined.TrendingUp)
     object Settings : BottomNavItem(Screen.Settings.route, "Settings", Icons.Filled.Settings, Icons.Outlined.Settings)
 }
 
