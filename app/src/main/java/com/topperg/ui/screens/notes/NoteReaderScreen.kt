@@ -85,7 +85,7 @@ fun NoteReaderScreen(
     var showBanner by remember { mutableStateOf(true) }
 
     val sentences = remember(note?.content) {
-        note?.content?.split(Regex("(?<=[.!?।])\s+"))?.filter { it.isNotBlank() } ?: emptyList()
+        note?.content?.split(Regex("(?<=[.!?।])\\s+"))?.filter { it.isNotBlank() } ?: emptyList()
     }
 
     // Initialize TTS
