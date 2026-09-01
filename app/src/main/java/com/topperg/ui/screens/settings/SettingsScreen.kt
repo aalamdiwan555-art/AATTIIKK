@@ -21,7 +21,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -106,7 +106,7 @@ fun SettingsScreen(
                     Text("Class: ${it.classLevel}", style = MaterialTheme.typography.bodyLarge)
                     Text("Language: ${it.languageName}", style = MaterialTheme.typography.bodyLarge)
                 }
-                Divider()
+                HorizontalDivider()
             }
 
             // Account Settings
