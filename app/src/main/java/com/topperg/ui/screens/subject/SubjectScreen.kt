@@ -48,17 +48,11 @@ import com.topperg.ui.components.BannerAd
 import com.topperg.ui.components.SubjectIcon
 import com.topperg.viewmodel.ProfileViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SubjectScreenViewModel @Inject constructor(
-    private val contentRepository: ContentRepository,
-    private val profileRepository: ProfileViewModel
+    private val contentRepository: ContentRepository
 ) : androidx.lifecycle.ViewModel() {
 
     fun getChapters(subjectId: String, boardId: String, classLevel: Int, languageCode: String) =
