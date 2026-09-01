@@ -36,7 +36,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -48,11 +47,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.topperg.data.local.entity.McqEntity
 import com.topperg.ui.theme.Error
 import com.topperg.ui.theme.Success
-import com.topperg.viewmodel.ProfileViewModel
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,10 +57,8 @@ import java.util.UUID
 fun McqPracticeScreen(
     chapterId: String,
     onFinish: (String) -> Unit,
-    onBackClick: () -> Unit,
-    profileViewModel: ProfileViewModel = hiltViewModel()
+    onBackClick: () -> Unit
 ) {
-    val profile by profileViewModel.profile.collectAsState()
     var questions by remember { mutableStateOf<List<McqEntity>>(emptyList()) }
     var currentIndex by remember { mutableIntStateOf(0) }
     var selectedOption by remember { mutableIntStateOf(0) }
