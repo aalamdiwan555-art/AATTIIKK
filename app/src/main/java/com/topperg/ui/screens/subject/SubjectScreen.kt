@@ -33,20 +33,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.topperg.data.local.entity.ChapterEntity
-import com.topperg.data.local.entity.SubjectEntity
 import com.topperg.data.repository.ContentRepository
 import com.topperg.ui.components.BannerAd
-import com.topperg.ui.components.SubjectIcon
-import com.topperg.viewmodel.ProfileViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -59,21 +53,14 @@ class SubjectScreenViewModel @Inject constructor(
         contentRepository.getChapters(subjectId, boardId, classLevel, languageCode)
 }
 
+@Suppress("UNUSED_PARAMETER")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubjectScreen(
     subjectId: String,
     onChapterClick: (String) -> Unit,
-    onBackClick: () -> Unit,
-    viewModel: SubjectScreenViewModel = hiltViewModel(),
-    profileViewModel: ProfileViewModel = hiltViewModel()
+    onBackClick: () -> Unit
 ) {
-    val profile by profileViewModel.profile.collectAsState()
-    val subject = profile?.let { p ->
-        // In a real app, fetch subject from repository
-        null
-    }
-
     val chapters = emptyList<ChapterEntity>() // Fetch from viewmodel
 
     Scaffold(
