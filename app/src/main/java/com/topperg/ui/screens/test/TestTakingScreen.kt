@@ -55,6 +55,7 @@ import kotlinx.coroutines.delay
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun TestTakingScreen(
     testSessionId: String,
@@ -62,7 +63,7 @@ fun TestTakingScreen(
     adManager: AdManager? = null
 ) {
     // Hide all ads during test
-    LaunchedEffect(Unit) {
+    LaunchedEffect(testSessionId) {
         adManager?.setTestInProgress(true)
     }
 
