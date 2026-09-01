@@ -1,13 +1,17 @@
 package com.topperg.ui.screens.chapter
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Quiz
 import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,7 +44,7 @@ fun ChapterScreen(
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("Notes", "MCQ Practice", "Chapter Test")
-    val tabIcons = listOf(Icons.Default.MenuBook, Icons.Default.Quiz, Icons.Default.Timer)
+    val tabIcons = listOf(Icons.AutoMirrored.Filled.MenuBook, Icons.Default.Quiz, Icons.Default.Timer)
 
     Scaffold(
         topBar = {
@@ -129,7 +133,10 @@ private fun NotesTab(onNotesClick: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(vertical = 8.dp)
         )
-        // Add a button or card to navigate to NoteReader
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onNotesClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Read Notes")
+        }
     }
 }
 
@@ -151,6 +158,10 @@ private fun McqTab(onMcqPracticeClick: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(vertical = 8.dp)
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onMcqPracticeClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Start Practice")
+        }
     }
 }
 
@@ -172,5 +183,9 @@ private fun TestTab(onChapterTestClick: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(vertical = 8.dp)
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onChapterTestClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Start Test")
+        }
     }
 }
