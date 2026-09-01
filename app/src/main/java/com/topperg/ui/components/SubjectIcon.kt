@@ -9,7 +9,7 @@ import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Science
 import androidx.compose.material3.Icon
@@ -50,11 +50,11 @@ fun SubjectIcon(
             Icons.Default.Language to SubjectEnglish
         subjectName.contains("Hindi", ignoreCase = true) ||
         subjectName.contains("Sanskrit", ignoreCase = true) ->
-            Icons.Default.MenuBook to SubjectHindi
+            Icons.AutoMirrored.Filled.MenuBook to SubjectHindi
         subjectName.contains("Computer", ignoreCase = true) ||
         subjectName.contains("IT", ignoreCase = true) ->
             Icons.Default.Computer to SubjectComputer
-        else -> Icons.Default.MenuBook to MaterialTheme.colorScheme.primary
+        else -> Icons.AutoMirrored.Filled.MenuBook to MaterialTheme.colorScheme.primary
     }
 
     Box(
