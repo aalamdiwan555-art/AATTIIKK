@@ -45,6 +45,7 @@ import com.topperg.ui.theme.Error
 import com.topperg.ui.theme.Success
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun TestResultScreen(
     attemptId: String,
@@ -53,7 +54,7 @@ fun TestResultScreen(
     adManager: AdManager? = null
 ) {
     // Show interstitial ad
-    LaunchedEffect(Unit) {
+    LaunchedEffect(attemptId) {
         adManager?.showInterstitial()
     }
 
