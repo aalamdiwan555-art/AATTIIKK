@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun TestSetupScreen(
     subjectId: String,
@@ -94,24 +95,21 @@ fun TestSetupScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             TestScopeCard(
-                scope = TestScope.SINGLE_CHAPTER,
-                title = "Single Chapter",
+                        title = "Single Chapter",
                 description = "Test on the current chapter only",
                 selected = selectedScope == TestScope.SINGLE_CHAPTER,
                 onClick = { selectedScope = TestScope.SINGLE_CHAPTER }
             )
             Spacer(modifier = Modifier.height(8.dp))
             TestScopeCard(
-                scope = TestScope.FULL_SUBJECT,
-                title = "Full Subject",
+                        title = "Full Subject",
                 description = "Test covering all chapters",
                 selected = selectedScope == TestScope.FULL_SUBJECT,
                 onClick = { selectedScope = TestScope.FULL_SUBJECT }
             )
             Spacer(modifier = Modifier.height(8.dp))
             TestScopeCard(
-                scope = TestScope.CUSTOM,
-                title = "Custom Selection",
+                        title = "Custom Selection",
                 description = "Choose multiple chapters",
                 selected = selectedScope == TestScope.CUSTOM,
                 onClick = { selectedScope = TestScope.CUSTOM }
@@ -186,7 +184,6 @@ enum class TestScope {
 
 @Composable
 private fun TestScopeCard(
-    scope: TestScope,
     title: String,
     description: String,
     selected: Boolean,
