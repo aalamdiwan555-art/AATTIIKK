@@ -1,0 +1,118 @@
+TOPPERG - PROJECT OVERVIEW
+GitHub: https://github.com/aalamdiwan555-art/TopperG
+==================================================
+
+1. WHAT IS TOPPERG
+--------------------
+TopperG is an Android study app for Indian school students, Class 1 to Class 12.
+It supports ALL state education boards (CBSE, ICSE, and state boards like BSEB,
+UPMSP, MPBSE, RBSE, GSEB, MBSE, WBBSE, JAC, HBSE, PSEB, TNBSE, etc.) and ALL
+Indian regional languages, not just Hindi/English.
+
+Core idea: a student opens the app once, picks their Board, Class, and preferred
+Language, and from then on every subject, chapter, note, MCQ, test, and previous
+year paper shown to them is filtered to match exactly what they study.
+
+2. WHO IS IT FOR
+------------------
+- Primary users: Class 1-12 students across India, especially Tier 2/3 towns
+  where regional-language study material is hard to find online.
+- Secondary users: parents who want to track a child's practice test scores.
+- Tertiary: teachers who may use the "previous year paper" bank for reference.
+
+3. WHY IT IS DIFFERENT (POSITIONING)
+---------------------------------------
+- Most study apps are CBSE-only or Hindi/English-only. TopperG's differentiator
+  is genuine multi-board + multi-language coverage, chosen ONCE at onboarding.
+- Text-to-Speech (TTS) lets a student listen to any note/chapter instead of
+  only reading it - useful for revision, for visually impaired users, and for
+  students who study while doing chores/commuting.
+- Everything (MCQ bank, tests, previous year papers) is tagged by
+  Board + Class + Subject + Language, so content never feels "generic."
+
+4. MONETIZATION
+------------------
+- Ad-supported, free to use (per original request). Ads are implemented with
+  a real ad SDK (e.g., AdMob is recommended over Unity Ads alone for fill
+  rate in India; Unity Ads can run as mediation partner).
+- Ad placements: banner on home/subject list screens, interstitial between
+  test-review screens (capped frequency), optional rewarded video for
+  "unlock extra previous year papers" or "remove ads for 24 hours."
+- Future option (v2): one-time or subscription "Ad-Free / Pro" tier -
+  documented here but NOT required for v1 launch.
+
+5. TECH STACK (matches existing project state)
+--------------------------------------------------
+- Platform: Android, Kotlin
+- UI: Jetpack Compose
+- Local DB: Room (offline access to downloaded notes/MCQs)
+- Backend: Supabase (auth, content storage, sync of Board/Class/Subject
+  content, remote content updates without app store release)
+- Ads: Unity Ads (+ recommend AdMob mediation for better India fill rate)
+- API scaffolding: TypeScript (for any admin/back-office tooling or content
+  management scripts that talk to Supabase)
+
+6. NON-NEGOTIABLE QUALITY BAR
+----------------------------------
+"100% bug free" is the stated goal. In practice this means:
+- Every feature ships with a manual test pass before merge (see
+  To-do list.txt and How to create.txt for the enforced workflow).
+- No feature is marked "done" until it has been used end-to-end at least
+  once with real content (not placeholder Lorem Ipsum).
+- Crash-free session rate is the actual measurable target (aim: 99.5%+
+  before Play Store submission), tracked via Supabase logs or Firebase
+  Crashlytics.
+
+7. HIGH-LEVEL FEATURE LIST (15+ features, detail in fechurs.txt)
+---------------------------------------------------------------------
+1. Onboarding: Permissions request
+2. Board selection (all state boards + CBSE/ICSE)
+3. Class selection (1-12)
+4. Language selection (all major Indian languages)
+5. Subject-wise study material / notes ("Savdhyay" = self-study notes)
+6. Chapter-wise breakdown per subject
+7. Text-to-Speech reader for any note/chapter
+8. MCQ practice mode (per chapter/subject)
+9. Full mock Test mode (timed, auto-graded)
+10. Previous Year Question Papers bank (per board/class/subject/year)
+11. Score history / performance tracker
+12. Bookmarks / "Save for later"
+13. Search across notes, MCQs, and papers
+14. Offline download of notes for no-internet study
+15. Daily study reminder / notification
+16. Doubt/Notes sharing (share a note via WhatsApp etc.)
+17. Dark mode
+18. Ads (banner + interstitial + rewarded)
+19. Settings (change board/class/language later, profile)
+20. Admin-managed content sync (Supabase-driven, no app update needed)
+
+8. SCOPE FOR V1 (MVP) VS LATER
+------------------------------------
+V1 MUST HAVE: onboarding+permissions, board/class/language selection, notes
+by subject/chapter, TTS reader, MCQ practice, test mode, previous year papers,
+score tracking, offline download, ads, dark mode, search.
+
+V2 (documented, not blocking launch): parent dashboard, leaderboard/gamification,
+live doubt-solving chat, video lessons, Pro subscription.
+
+9. SUCCESS METRICS
+----------------------
+- Onboarding completion rate (Board+Class+Language all selected)
+- Daily Active Users returning for MCQ/Test mode
+- Average tests completed per user per week
+- Crash-free rate
+- Ad revenue per daily active user (eCPM)
+
+10. RISKS / OPEN QUESTIONS
+-------------------------------
+- Content volume: notes + MCQs + previous papers for 12 classes x many boards
+  x many languages is a LOT of content. Realistic plan: launch with 2-3
+  boards and 2-3 languages fully populated, add more boards/languages in
+  phases (see How to create.txt for phased approach).
+- Who creates/verifies the actual study content (accuracy matters a lot for
+  an education app) - needs a content team or vetted source, not just AI-
+  generated text, especially for board-specific syllabus accuracy.
+- Permissions requested at first launch should be minimized to what's
+  actually needed (storage for offline downloads, notifications) - avoid
+  asking for permissions the app doesn't use, since Play Store review and
+  users both flag over-permissioned apps.

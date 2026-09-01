@@ -1,0 +1,137 @@
+TOPPERG - AD SYSTEM (Ad.txt) - ADMOB IMPLEMENTATION
+==================================================
+This replaces the earlier "Unity Ads + AdMob mediation" plan with a
+single, lightweight AdMob-only setup. Simpler = fewer SDKs, smaller APK,
+fewer places for bugs to hide.
+
+1. AD NETWORK
+-------------------
+Google AdMob only (no Unity Ads, no mediation stack for v1). Reasons:
+- One SDK instead of two = lighter app size, fewer init calls, fewer
+  crash surfaces.
+- AdMob has strong fill rate across India already.
+- Mediation can be added later in v2 if fill rate/eCPM needs improvement -
+  documented as future option, not built now.
+
+2. AD FORMATS USED
+------------------------
+- Banner
+- Native (in-feed, styled to match app content cards - not a generic box)
+- App Open Ad
+- Interstitial
+
+NOT used: Rewarded video (removed from this plan to keep the system
+lightweight - can be added later if a specific "unlock" feature needs it).
+
+3. THE CORE RULE: HOME PAGE IS AD-FREE
+--------------------------------------------
+HomeScreen shows ZERO ads of any kind (no banner, no native, no
+interstitial, no app-open triggered while landing there from a cold app-
+open flow that resolves onto Home... see section 6 for the App Open
+exception). Home is the first thing a student sees every session - keeping
+it clean builds trust and keeps the "study app" feeling calm, not like an
+ad-funded junk app. Every OTHER screen may carry ads per the rules below.
+
+4. PLACEMENT MAP (screen -> ad format)
+--------------------------------------------
+HomeScreen                     -> NO ADS (see rule above)
+SubjectScreen                  -> Banner (bottom-docked)
+ChapterScreen                  -> Banner (bottom-docked)
+NoteReaderScreen                -> Banner (bottom-docked, hidden during
+                                    active TTS playback - see section 7)
+McqPracticeScreen               -> Native ad inserted every 8th question
+                                    (in-feed style card, not a popup)
+McqResultScreen                 -> Interstitial (shown once, on screen
+                                    entry, before result is visible)
+TestSetupScreen                 -> Banner (bottom-docked)
+TestTakingScreen                -> NO ADS (never interrupt active test-
+                                    taking, same rule as before)
+TestResultScreen                -> Interstitial (shown once, on screen
+                                    entry)
+PreviousYearPapersScreen        -> Banner (bottom-docked) + Native ad
+                                    inserted every 6th paper in the list
+PaperViewScreen                 -> Banner (bottom-docked)
+SearchScreen                    -> Banner (bottom-docked)
+SavedScreen                     -> Banner (bottom-docked)
+ScoreHistoryScreen              -> Banner (bottom-docked)
+SettingsScreen                  -> NO ADS (settings is a utility screen,
+                                    ads here feel intrusive and the screen
+                                    is visited briefly/functionally)
+DownloadsManagerScreen          -> NO ADS (same reasoning as Settings)
+AuthScreen                      -> NO ADS (never put ads on login/signup)
+
+5. INTERSTITIAL FREQUENCY CAP
+------------------------------------
+- Max ONE interstitial per 10 minutes of active session, regardless of how
+  many result screens are visited in that window.
+- Never shown back-to-back (e.g., finishing MCQ then immediately starting
+  and finishing another MCQ set should not double-fire).
+- Never shown on a user's very first session (first-session grace period,
+  improves Day-1 retention and first impression).
+
+6. APP OPEN AD
+--------------------
+- Shown only on a "cold start" app launch (app was fully backgrounded/
+  killed, not just a quick screen-off/screen-on), and only after Splash
+  resolves - shown as a transition moment BEFORE HomeScreen is visible,
+  not on top of it. Once dismissed, user lands on a clean, ad-free Home.
+- Never shown on warm resume (switching back from another app briefly) -
+  only true cold starts, and capped to once per hour max even then.
+- Skipped entirely if the app open ad fails to load within ~2 seconds -
+  never block app launch waiting on an ad network.
+
+7. NATIVE AD STYLING RULE
+--------------------------------
+Native ads must visually match the surrounding content list (same card
+shape/corner radius/spacing as MCQ question cards or paper list items) but
+ALWAYS carry a clear "Ad" label badge per AdMob policy - never disguised as
+real app content. This keeps native placements from feeling deceptive while
+still feeling "lightweight" rather than a jarring foreign ad unit.
+
+8. WHEN BANNERS AUTO-HIDE
+--------------------------------
+Banner ads on NoteReaderScreen automatically hide while TTS is actively
+playing, and reappear when paused/stopped - avoids visual distraction while
+a student is following along with sentence-highlighted audio.
+
+9. LIGHTWEIGHT IMPLEMENTATION NOTES
+------------------------------------------
+- Single AdManager wrapper object/class handles all AdMob init, ad unit ID
+  config, load/show calls, and the frequency-cap/session-timer logic in one
+  place - screens call simple functions like AdManager.showBannerIfAllowed()
+  rather than each screen re-implementing ad logic.
+- Ad unit IDs stored in a config file (not hardcoded scattered across
+  screens) so swapping test IDs for production IDs before Play Store
+  release is a one-file change.
+- Use AdMob TEST ad unit IDs during all development/testing - never test
+  with live production ad unit IDs (violates AdMob policy and risks
+  account suspension).
+- Ad loading must never block or delay the underlying screen's real
+  content from rendering - ads load asynchronously, content is always
+  primary.
+
+10. UPDATED "DONE" CRITERIA FOR THE ADS FEATURE
+-------------------------------------------------------
+- Confirmed zero ads appear anywhere on HomeScreen, TestTakingScreen,
+  SettingsScreen, DownloadsManagerScreen, or AuthScreen (manual check on
+  every one of these, not assumed).
+- Frequency cap verified by manually triggering multiple result screens
+  within 10 minutes and confirming only one interstitial fires.
+- App Open Ad verified to only fire on true cold start, not warm resume.
+- Native ad "Ad" label badge visually confirmed on-device (not just in
+  code).
+- Banner auto-hide during TTS playback verified on NoteReaderScreen.
+- AdMob test IDs replaced with real production IDs only as the very last
+  step before Play Store submission (separate checklist item, not
+  bundled into earlier phases).
+
+11. WHAT CHANGED FROM THE EARLIER PLAN
+---------------------------------------------
+- Previous plan: Unity Ads + optional AdMob mediation, rewarded video
+  included, ad rules only distinguished "browse screens vs active test."
+- New plan (this document is authoritative going forward): AdMob only, no
+  rewarded video, Home page explicitly ad-free, and a full screen-by-screen
+  placement map instead of general rules. Other docs (fechurs.txt #17,
+  UI+UX.txt section 4, Project.txt section 4, Prompt.txt constraint #7)
+  should be read together with this file - where they conflict on ad
+  network/format, THIS FILE is correct and current.

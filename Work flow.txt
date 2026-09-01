@@ -1,0 +1,108 @@
+TOPPERG - WORK FLOW (HOW THE APP WORKS)
+==================================================
+
+1. FIRST LAUNCH FLOW
+--------------------------
+App opens -> Splash checks local Room prefs for existing profile ->
+  IF none: Permissions screen -> user grants/denies storage+notification ->
+    Board selection -> Class selection -> Language selection ->
+    profile saved to Room (local) AND, if network available, mirrored to
+    Supabase under an anonymous/device ID (upgraded to real account if user
+    later logs in) -> Home
+  IF profile exists: straight to Home
+
+2. CONTENT LOADING FLOW
+------------------------------
+Home screen requests Subject list for (Board, Class) from Room cache first
+  (instant paint, no spinner) -> in background, checks Supabase for a newer
+  content version for that Board+Class -> if newer content exists, downloads
+  delta and updates Room -> UI refreshes silently (no jarring reload).
+This "local-first, sync-in-background" pattern applies to every content
+type: Subjects, Chapters, Notes, MCQs, Previous Year Papers.
+
+3. STUDYING A CHAPTER (NOTES + TTS) FLOW
+----------------------------------------------
+User taps Chapter -> Notes tab loads text from Room -> user taps Play on
+TTS bar -> Android TextToSpeech engine initialized with the profile's
+selected language -> text is chunked into sentences -> each sentence is
+spoken and simultaneously highlighted in the reader -> on finish, auto-
+advances to next paragraph -> user can bookmark or share at any point
+without interrupting playback.
+
+4. MCQ PRACTICE FLOW
+--------------------------
+User enters MCQ tab -> app loads chapter's question set (Room) -> question 1
+displayed with 4 options -> user taps an option -> app checks correctness
+locally (no server round-trip needed) -> shows color feedback + explanation
+-> user taps Next -> repeats until question set exhausted -> Result screen
+shows score, missed questions -> attempt is written to Room immediately
+AND queued for Supabase sync (works offline, syncs when back online).
+
+5. TEST MODE FLOW
+------------------------
+User selects scope (chapter/subject/custom) and duration on TestSetup ->
+Test session object created in memory + persisted to Room every N seconds
+(so a crash or interruption doesn't lose progress) -> timer runs -> user
+answers questions, can jump via bottom-sheet grid -> on Submit (manual or
+auto via timer expiry) -> score calculated locally -> Result screen shown
+-> interstitial ad may trigger here (per ad frequency cap) -> result saved
+to Score History (Room + Supabase sync).
+
+6. PREVIOUS YEAR PAPER FLOW
+----------------------------------
+User opens Previous Year Papers -> filtered list loads from Room (synced
+from Supabase in background per content loading flow) -> user opens a
+paper -> can read as-is, OR tap "Practice as Test" -> paper's questions are
+loaded into the same Test Mode engine used in flow #5 (reused component,
+not a separate rebuilt system) -> rest of flow identical to Test Mode.
+
+7. OFFLINE DOWNLOAD FLOW
+-------------------------------
+User taps Download on a Subject/Chapter -> app fetches full content bundle
+(notes text + MCQ set + associated audio-language flag) from Supabase if
+not already in Room -> stored in Room + local file storage -> marked
+"Available Offline" in UI -> when offline, all read/MCQ/TTS flows check
+Room/local storage only, never attempt network calls for that content.
+
+8. LOGIN / SYNC FLOW
+---------------------------
+User is guest by default (device-scoped local ID). If user logs in via
+Supabase Auth (email or phone OTP):
+  - Existing local Score History + Bookmarks are attached to the new
+    account (uploaded to Supabase, tagged with real user ID)
+  - On any other device, logging in with the same account pulls that
+    Score History + Bookmarks back down
+  - Board/Class/Language profile syncs the same way, so switching devices
+    doesn't require re-onboarding
+
+9. ADMIN CONTENT UPDATE FLOW (no app release needed)
+------------------------------------------------------------
+Admin adds/edits content in Supabase (new board, new chapter, corrected
+MCQ, new previous year paper) -> content is versioned (a "content_version"
+timestamp/number per Board+Class+Subject) -> app's background sync check
+(step 2) detects the new version next time a user opens that
+Subject/Chapter -> downloads only the delta, not the whole content set ->
+users see updated content without any Play Store update.
+
+10. AD DISPLAY FLOW
+--------------------------
+App checks ad placement rules (UI+UX.txt section 4) before every potential
+ad slot: is this a browse screen (banner allowed)? has 10 minutes passed
+since last interstitial? is a test currently in-progress (block all ads)?
+-> if allowed, requests ad from Unity Ads (or AdMob mediation) -> shows on
+success, silently skips on failure (never blocks core app usage waiting on
+an ad network).
+
+11. ERROR / RETRY FLOW
+-----------------------------
+Any network-dependent action (sync, login, ad fetch) that fails shows a
+non-blocking inline error (not a full-screen crash-like dialog) with a
+Retry action, while all locally-cached content remains fully usable.
+
+12. BUG-FIX / RELEASE FLOW (ties to How to create.txt)
+--------------------------------------------------------------
+Feature built -> manually tested end-to-end with real content -> bugs found
+& fixed -> code committed to GitHub -> relevant .txt docs updated to reflect
+actual final behavior (not just original plan) -> next feature/phase begins.
+This repeats per phase until all 15+ features are live, tested, and
+documented as matching actual shipped behavior.

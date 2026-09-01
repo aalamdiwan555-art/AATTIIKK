@@ -1,0 +1,144 @@
+TOPPERG - TO-DO LIST (AI/DEVELOPER WORKING RULES)
+==================================================
+This file is instructions for whoever (or whatever AI) is doing the actual
+build work on TopperG. Read this before starting ANY feature.
+
+STANDING RULE (applies to every single task below)
+--------------------------------------------------------
+After finishing a feature:
+  1. Re-read the FULL code of that feature (not just the new lines) -
+     look for bugs, unhandled null/empty states, unfinished TODOs.
+  2. Manually test it end-to-end with real data (not placeholder text).
+  3. Fix anything broken before moving on - do not leave "fix later" bugs.
+  4. Commit directly to GitHub (https://github.com/aalamdiwan555-art/TopperG)
+     with a clear commit message describing exactly what changed.
+  5. Update the relevant .txt document(s) in this doc set if actual
+     behavior differs from what was originally planned (docs must always
+     reflect real, current app behavior - not the original plan if it
+     changed).
+  6. Only then move to the next feature on this list.
+
+Never mark a feature "done" just because it compiles. "Done" = tested with
+real content + committed + docs updated.
+
+PHASE 0 - PROJECT SETUP
+----------------------------
+[ ] Confirm GitHub repo connected and initial commit pushed
+[ ] Confirm Supabase project created, connection string/keys secured
+    (never committed in plaintext to GitHub - use local.properties /
+    environment config, add to .gitignore)
+[ ] Confirm Room database schema drafted for: Profile, Subjects, Chapters,
+    Notes, MCQs, TestAttempts, Bookmarks, DownloadedContent
+[ ] Confirm base Compose navigation graph matches Page.txt screen list
+
+PHASE 1 - ONBOARDING
+--------------------------
+[ ] Splash screen + profile check logic
+[ ] Permissions screen (storage, notification) with rationale copy
+[ ] Board selection screen + data model for boards list
+[ ] Class selection screen
+[ ] Language selection screen
+[ ] Profile save (Room + Supabase mirror)
+--> Bug check + commit + doc update before Phase 2
+
+PHASE 2 - CORE CONTENT BROWSING
+------------------------------------
+[ ] Home screen (subject grid, quick access row, board/class/lang chip)
+[ ] Subject screen (chapter list + progress rings)
+[ ] Chapter screen (3-tab layout: Notes/MCQ/Test entry points)
+[ ] Content sync logic: Room-first load + Supabase background delta sync
+--> Bug check + commit + doc update before Phase 3
+
+PHASE 3 - NOTES + TTS
+----------------------------
+[ ] Note reader screen (text display, font size control)
+[ ] TTS integration (Android TextToSpeech, language-matched voice)
+[ ] Sentence highlight sync during playback
+[ ] Play/pause/speed/skip controls
+[ ] Graceful handling when a language's TTS voice pack isn't installed
+--> Bug check + commit + doc update before Phase 4
+
+PHASE 4 - MCQ PRACTICE
+----------------------------
+[ ] MCQ practice screen (one question per screen, feedback + explanation)
+[ ] MCQ result screen + "Retry Missed Only"
+[ ] Local scoring logic + Room write + Supabase sync queue
+--> Bug check + commit + doc update before Phase 5
+
+PHASE 5 - TEST MODE
+--------------------------
+[ ] Test setup screen (scope + duration selection)
+[ ] Test taking screen (timer, question jump grid, auto-submit)
+[ ] Crash-safe progress persistence (save state every N seconds)
+[ ] Test result screen + Score History write
+--> Bug check + commit + doc update before Phase 6
+
+PHASE 6 - PREVIOUS YEAR PAPERS
+------------------------------------
+[ ] Papers list screen with Year/Subject filters
+[ ] Paper view screen
+[ ] "Practice as Test" -> reuse Test Mode engine (do not duplicate logic)
+--> Bug check + commit + doc update before Phase 7
+
+PHASE 7 - SEARCH, BOOKMARKS, SCORE HISTORY
+------------------------------------------------
+[ ] Search screen (cross-content search, regional-language query handling)
+[ ] Saved/Bookmarks screen
+[ ] Score History screen (trend chart + strength/weakness list)
+--> Bug check + commit + doc update before Phase 8
+
+PHASE 8 - OFFLINE DOWNLOADS
+----------------------------------
+[ ] Download manager logic (fetch + store bundle)
+[ ] Downloads manager screen (view/delete downloaded content)
+[ ] Airplane-mode full test pass (notes, MCQ, TTS all work with zero
+    network calls)
+--> Bug check + commit + doc update before Phase 9
+
+PHASE 9 - AUTH + SETTINGS
+--------------------------------
+[ ] Supabase Auth screen (email/phone OTP + guest continue)
+[ ] Guest-to-account data migration logic
+[ ] Settings screen (all sub-items per Page.txt #20)
+[ ] Dark mode full pass across every screen (manual check, not just toggle
+    test)
+--> Bug check + commit + doc update before Phase 10
+
+PHASE 10 - NOTIFICATIONS
+------------------------------
+[ ] Daily reminder scheduling (WorkManager or AlarmManager)
+[ ] Notification permission flow (Android 13+ aware)
+--> Bug check + commit + doc update before Phase 11
+
+PHASE 11 - ADS
+--------------------
+[ ] Unity Ads SDK integration (+ AdMob mediation if pursued)
+[ ] Banner placement (browse screens only)
+[ ] Interstitial placement (post-test only, frequency capped)
+[ ] Rewarded video (opt-in unlocks only)
+[ ] Verify NO ads ever interrupt active Test Mode
+--> Bug check + commit + doc update before Phase 12
+
+PHASE 12 - CONTENT SCALE-UP
+----------------------------------
+[ ] Add remaining state boards beyond phase-1 set (see fechurs.txt #2)
+[ ] Add remaining languages beyond phase-1 set (see fechurs.txt #4)
+[ ] Re-verify onboarding + all flows still work correctly with expanded
+    board/language lists (a larger grid can break layout - re-test UI)
+--> Bug check + commit + doc update before Phase 13
+
+PHASE 13 - PRE-LAUNCH HARDENING
+--------------------------------------
+[ ] Full regression pass across all 20 features in fechurs.txt
+[ ] Crash-free session rate check (target 99.5%+)
+[ ] Privacy Policy + Terms finalized (legal review recommended, not just
+    AI-drafted, since app targets minors - India's DPDP Act applies)
+[ ] Play Store listing assets prepared (screenshots, feature graphic,
+    description) matching actual final UI, not early mockups
+[ ] Final GitHub commit tagged as release candidate
+
+ONGOING RULE AFTER LAUNCH
+-------------------------------
+Every new feature or fix, forever, follows the same standing rule at the
+top of this file: build -> full re-check -> fix -> commit -> update docs ->
+next task. No exceptions, no skipped steps, no "vibe coded" merges.

@@ -1,0 +1,89 @@
+TOPPERG - MASTER PROMPT (FOR AI-ASSISTED DEVELOPMENT)
+==================================================
+Use this as the system/context prompt whenever asking an AI (Claude, or
+any other coding assistant) to work on TopperG. It condenses every other
+document into one reference so the AI never loses project context.
+
+PROJECT IN ONE PARAGRAPH
+------------------------------
+TopperG is an Android (Kotlin, Jetpack Compose, Room, Supabase backend)
+study app for Indian students Class 1-12. On first launch, after minimal
+permission requests (storage, notifications - nothing else), the user
+selects their Education Board (CBSE, ICSE, and all major state boards),
+their Class (1-12), and their preferred Language (native-script selection,
+covering all major Indian languages, launching with Hindi/English/Marathi/
+Bengali and expanding in phases). From then on, the entire app - subject
+notes ("Savdhyay"), MCQ practice, timed Test Mode, and Previous Year
+Question Paper bank - is filtered to exactly that Board+Class+Language.
+A standout feature is Text-to-Speech: any note/chapter can be read aloud
+in the selected language with synced sentence highlighting. The app is
+free and ad-supported (Unity Ads, AdMob mediation recommended), with strict
+rules that ads never interrupt active test-taking. Full feature list (20
+features) is in fechurs.txt; every screen is in Page.txt; data flow is in
+Work flow.txt; UI direction (deliberately NOT a generic Material3 template)
+is in UI+UX.txt; build process and phased task checklist are in
+How to create.txt and To-do list.txt.
+
+HARD CONSTRAINTS FOR THE AI TO ALWAYS FOLLOW
+--------------------------------------------------
+1. Tech stack is fixed: Kotlin, Jetpack Compose, Room (local), Supabase
+   (backend/auth/content sync), Unity Ads. TypeScript only for any admin/
+   content-tooling scripts, not for the app itself.
+2. Never generate placeholder/Lorem-Ipsum content and call a feature done -
+   every feature must be tested with at least one real content example
+   before being marked complete.
+3. Never skip the bug-check step. After writing/changing any feature: re-
+   read the full code, test end-to-end, fix issues, THEN commit.
+4. Always commit directly to:
+   https://github.com/aalamdiwan555-art/TopperG
+   with a clear, specific commit message.
+5. Always update the relevant .txt doc (Project/UI+UX/fechurs/Page/
+   Work flow/To-do list/How to create) if actual implementation differs
+   from what that doc currently says - keep docs truthful to real app
+   state at all times.
+6. Never break the Board > Class > Subject > Chapter content hierarchy -
+   every content screen must respect the user's selected profile.
+7. Never place ads inside an active Test Mode session (before/after is
+   fine, during is not).
+8. UI must follow UI+UX.txt's defined color system, typography (Inter/
+   Manrope for Latin script, Noto Sans family for Indic scripts), and
+   navigation-mirrors-hierarchy principle - do not default to unstyled
+   Material3 components with no intentional design pass.
+9. Minimize permissions requested - only storage and notifications unless
+   a specific, documented feature requires more.
+10. Follow the phased build order in To-do list.txt - do not jump ahead to
+    later phases (e.g., ads, content scale-up) before earlier phases
+    (onboarding, core content browsing) are genuinely working and tested.
+
+WORKING INSTRUCTION FOR THE AI (paste this as the actual task instruction)
+--------------------------------------------------------------------------------
+"Work on TopperG one phase at a time, following To-do list.txt exactly in
+order. For the current phase: build the smallest working version, test it
+with real sample content (not placeholders), find and fix bugs by re-
+reading the full feature code (not just the diff), then commit the change
+to https://github.com/aalamdiwan555-art/TopperG with a clear message, then
+update any .txt doc whose description no longer matches the real
+implementation. Only then move to the next unchecked item. Do not mark
+anything done in To-do list.txt without actually completing all of these
+steps. If a requirement is ambiguous, check Project.txt, fechurs.txt,
+Page.txt, Work flow.txt, and UI+UX.txt in that order before guessing."
+
+QUESTIONS THE AI SHOULD ASK THE HUMAN IF UNCLEAR
+------------------------------------------------------
+- Which board/class/language pair should be the "vertical slice" for
+  initial full end-to-end testing (see How to create.txt section 5)?
+- Who is supplying/verifying actual syllabus content accuracy (see
+  How to create.txt section 6) - this should not be assumed to be AI-
+  generated without human review.
+- Final decision on AdMob mediation alongside Unity Ads, or Unity Ads only
+  for v1?
+- Exact list + order of state boards to support beyond the phase-1 set.
+
+DO NOT
+------------
+- Do not invent new features not listed in fechurs.txt without flagging it
+  as a suggestion first (it should be added to fechurs.txt intentionally,
+  not built silently).
+- Do not change the core Board>Class>Language onboarding model.
+- Do not remove or weaken the "test with real content before marking done"
+  rule, even under time pressure.

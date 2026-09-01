@@ -1,0 +1,146 @@
+TOPPERG - PAGE / SCREEN INVENTORY
+==================================================
+Every screen in the app, what's on it, and what it navigates to.
+Naming convention: ScreenName (Compose file suggestion: ScreenNameScreen.kt)
+
+A. ONBOARDING FLOW
+--------------------------
+1. SplashScreen
+   - App logo, brief load of cached user prefs (board/class/lang if already set)
+   - Routes to Home if onboarding already done, else to PermissionsScreen
+
+2. PermissionsScreen
+   - Explains storage + notification permission, one at a time, with "why"
+     copy before each OS prompt
+   - Next -> BoardSelectionScreen
+
+3. BoardSelectionScreen
+   - Grid of board cards (CBSE, ICSE, state boards)
+   - Search/filter by state name
+   - Next -> ClassSelectionScreen
+
+4. ClassSelectionScreen
+   - Chip row Class 1-12
+   - Next -> LanguageSelectionScreen
+
+5. LanguageSelectionScreen
+   - Grid of languages, each shown in native script
+   - Finish -> HomeScreen (creates local profile + Supabase profile if logged in)
+
+B. CORE APP FLOW
+--------------------------
+6. HomeScreen
+   - Top bar: Board/Class/Language chip (tap -> SettingsScreen)
+   - Quick-access row: Continue Studying, Streak, Previous Year Papers
+   - Subject grid for selected Board+Class
+   - Bottom nav: Home / Search / Saved / Score / Settings
+   - Tap subject -> SubjectScreen
+
+7. SubjectScreen
+   - Chapter list with progress ring per chapter
+   - Tap chapter -> ChapterScreen
+
+8. ChapterScreen
+   - 3 tabs: Notes | MCQ Practice | Chapter Test
+   - Notes tab -> NoteReaderScreen
+   - MCQ tab -> McqPracticeScreen
+   - Test tab -> TestSetupScreen
+
+9. NoteReaderScreen
+   - Full note text, font-size slider, TTS mini-player bar (play/pause/
+     speed/skip), sentence highlight during playback
+   - Bookmark icon (top right)
+   - Share icon
+
+10. McqPracticeScreen
+    - One question per screen, 4 full-width answer cards
+    - Instant feedback + explanation panel
+    - Progress dots at top showing question count
+    - End -> McqResultScreen
+
+11. McqResultScreen
+    - Score summary, list of missed questions with explanations
+    - "Retry Missed Only" button -> back into McqPracticeScreen filtered
+
+12. TestSetupScreen
+    - Choose test scope (single chapter / full subject / custom chapter
+      multi-select), choose duration
+    - Start -> TestTakingScreen
+
+13. TestTakingScreen
+    - Persistent timer bar, one question per screen, bottom-sheet question-
+      jump grid, Submit button
+    - Auto-submits on timer end
+    - End -> TestResultScreen
+
+14. TestResultScreen
+    - Score, time taken, per-question review (correct/wrong/skipped)
+    - Save to Score History automatically
+    - Interstitial ad may show here per ad rules
+
+15. PreviousYearPapersScreen
+    - Filter chips: Year / Subject
+    - List of papers (Board+Class pre-filtered from profile)
+    - Tap paper -> PaperViewScreen
+
+16. PaperViewScreen
+    - Full paper text/questions, scrollable
+    - "Practice as Test" button -> TestTakingScreen (paper mode)
+
+17. SearchScreen
+    - Search bar, recent searches, results grouped by Notes / MCQs / Papers
+    - Tap result -> relevant screen (NoteReaderScreen / McqPracticeScreen /
+      PaperViewScreen)
+
+18. SavedScreen (Bookmarks)
+    - List of bookmarked notes/MCQ sets/papers, grouped by type
+    - Tap -> relevant screen
+
+19. ScoreHistoryScreen
+    - Line chart of scores over time (filter by subject)
+    - Strength/weakness bar list
+    - Tap a past test -> TestResultScreen (historical view)
+
+20. SettingsScreen
+    - Change Board / Class / Language (re-opens respective selection screens
+      in "edit mode," returns here after)
+    - Manage Downloads -> DownloadsManagerScreen
+    - Notification time picker
+    - TTS default speed
+    - Dark mode toggle
+    - Login/Logout -> AuthScreen
+    - Delete account/data
+    - About / Contact / Privacy Policy links
+
+21. DownloadsManagerScreen
+    - List of downloaded subjects/chapters with storage size, delete option
+
+22. AuthScreen
+    - Email or phone OTP login via Supabase Auth
+    - "Continue as Guest" always available
+    - Success -> back to SettingsScreen (or HomeScreen if first-time login
+      prompt)
+
+23. NotificationPermissionRationaleScreen
+    - Shown only if user later enables reminders after initially skipping -
+      re-explains why before re-requesting OS permission
+
+C. SUPPORT / UTILITY SCREENS
+----------------------------------
+24. AboutScreen - app version, credits, contact/support email
+25. PrivacyPolicyScreen - required for Play Store, especially since app
+    targets minors - must be COPPA/DPDP-Act (India) aware, reviewed by
+    someone with actual legal knowledge, not just AI-generated boilerplate
+26. ErrorScreen / NoInternetScreen - reusable state screen shown when a
+    network-dependent action fails, with Retry button
+27. EmptyStateScreen (reusable component, not a route) - shown wherever a
+    list is empty (e.g., no papers yet for a newly added board)
+
+NAVIGATION MAP (simplified)
+--------------------------------
+Splash -> [Permissions -> Board -> Class -> Language] -> Home
+Home -> Subject -> Chapter -> {Notes | MCQ | Test}
+Home -> PreviousYearPapers -> PaperView -> TestTaking
+Home -> Search / Saved / ScoreHistory / Settings (bottom nav, always
+  reachable, no dead ends)
+Settings -> Downloads / Auth / Board(edit) / Class(edit) / Language(edit)

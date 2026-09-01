@@ -1,0 +1,164 @@
+TOPPERG - UI / UX DESIGN GUIDE
+==================================================
+Goal of this document: give TopperG a real, considered visual identity -
+NOT a default Material3 template, not random colors, not "vibe coded."
+Every choice below has a reason tied to who uses this app (school students,
+often on mid-range phones, often studying at night, often in low-literacy-
+in-English contexts).
+
+1. DESIGN PRINCIPLES (why before what)
+--------------------------------------------
+- Clarity over decoration: a Class 6 student and a Class 12 student both use
+  this app. UI must be readable, not "cool-looking but confusing."
+  Large tap targets (min 48dp), high contrast text, no tiny icon-only nav
+  without labels.
+- Regional-language-first: many UI text strings will be in Hindi, Marathi,
+  Bengali, Tamil, Telugu, etc. Layouts must NOT assume short English words -
+  buttons and nav labels need to reflow for longer scripts. Test every
+  screen with a long-language string (e.g., Malayalam), not just English.
+- Low-cognitive-load navigation: student's mental model is
+  Board > Class > Subject > Chapter > (Notes/MCQ/Test). Navigation should
+  mirror this exact hierarchy, never skip a level or hide it.
+- Performance-first visuals: avoid heavy animations/gradients on every
+  screen - many users are on budget Android devices. Motion should be
+  purposeful (screen transitions, correct/wrong answer feedback), not
+  decorative.
+
+2. VISUAL IDENTITY
+------------------------
+Brand personality: "a trustworthy, sharp senior student who explains things
+simply" - not a corporate SaaS tool, not a childish cartoon app (since it
+spans Class 1 to Class 12, avoid an overly babyish look that older students
+will reject, but keep it warm enough for younger students).
+
+Color system (defined with purpose, not defaults):
+- Primary: Deep Indigo #2A2F6B - trust, focus, "study mode," works well in
+  both light and dark backgrounds, distinct from the generic blue every
+  other ed-app uses.
+- Secondary / Accent: Marigold #F4A100 - Indian, warm, used ONLY for
+  highlights: streaks, correct-answer states, CTA buttons. Marigold is
+  chosen deliberately over generic "app green" to feel distinctly Indian
+  and energetic without being childish.
+- Success (correct answer): Leaf Green #2E9E5B
+- Error (wrong answer): Terracotta Red #C6553D (softer than pure red -
+  less harsh/punishing for a student who got something wrong)
+- Neutral surface (light mode): Warm off-white #FAF8F3 (not stark white -
+  easier on eyes for long reading sessions)
+- Neutral surface (dark mode): Charcoal #171A21 (not pure black - avoids
+  OLED smearing and looks less "empty")
+- Text: near-black #1C1C1E on light, off-white #EDEDED on dark - never pure
+  #000/#FFF, for reduced eye strain.
+
+Typography:
+- Latin script UI: "Inter" or "Manrope" - clean, humanist, highly legible
+  at small sizes, free/open license.
+- Indic scripts: "Noto Sans" family (Noto Sans Devanagari, Noto Sans
+  Bengali, Noto Sans Tamil, etc.) - Google's Noto set is specifically built
+  so every Indian script renders correctly and consistently, avoiding the
+  broken-glyph problem many apps have with regional text.
+- Type scale: Headline 22sp / Title 18sp / Body 16sp / Caption 13sp.
+  Body text floor is 16sp minimum - never smaller, since this is a reading-
+  heavy app for young users.
+
+Iconography:
+- Rounded, filled-style icons (not thin outline) - more visible/legible at
+  small sizes on budget-device screens, friendlier tone.
+- Subject icons are custom, not generic stock: e.g., Math = geometric
+  compass motif, Science = leaf+flask hybrid, History = ashoka-chakra-
+  adjacent monument silhouette (original artwork, not copyrighted symbols).
+
+3. KEY SCREEN UX PATTERNS
+--------------------------------
+a) Onboarding / Permissions
+   - Never show a raw OS permission dialog with no context. Each permission
+     is preceded by a one-line "why" screen (e.g., "We use storage to save
+     notes for offline study" -> THEN the system prompt).
+   - Progress dots at top (Permissions -> Board -> Class -> Language) so
+     student always knows how many steps remain.
+
+b) Board / Class / Language Selection
+   - Big card-grid selection (not a dropdown) - dropdowns are hard to scan
+     for younger users. Board selection shows state logos/initials
+     (CBSE, ICSE, JBSE, GSEB...) as a recognizable grid.
+   - Class selection: horizontal scroll chips 1-12, large tap area, current
+     selection has Marigold underline + bold state.
+   - Language selection: each language name is shown written IN that
+     language (e.g., "தமிழ்" not "Tamil") so users find their own script
+     easily even if they can't read English well.
+   - This selection is changeable later from Settings, but selection screen
+     itself is only shown again if user explicitly asks to switch.
+
+c) Home / Subject Dashboard
+   - After selection, home shows subject cards for their exact
+     Board+Class combo, plus a persistent small "Board: XX | Class: X |
+     Lang: XX" chip at the top that opens Settings when tapped (so it never
+     feels locked-in / hidden).
+   - Quick-access row at top: Continue Studying, Daily MCQ Streak,
+     Previous Year Papers.
+
+d) Subject -> Chapter -> Content
+   - Chapter list uses a simple checklist/progress-ring pattern per chapter
+     (not-started / in-progress / completed) so students SEE progress,
+     which drives return visits.
+   - Content screen for a chapter has 3 clearly separated entry tabs:
+     Notes (Savdhyay), MCQ Practice, Chapter Test - never mixed into one
+     long scroll.
+
+e) Notes / TTS Reader
+   - Reading view: large serif-leaning body font optional toggle (some
+     students read serif better for long text), adjustable text size
+     slider, and a persistent bottom mini-player bar for TTS with
+     play/pause/speed (0.75x-1.5x)/skip-paragraph controls.
+   - TTS playback highlights the current sentence being read (karaoke-style
+     highlight) - critical for the "listen and follow along" use case.
+
+f) MCQ / Test Mode
+   - One question per screen, big tap-target options (A/B/C/D as full-width
+     cards, not tiny radio buttons).
+   - Immediate color feedback (Leaf Green / Terracotta) with a one-line
+     explanation reveal, not just a checkmark - reinforces learning.
+   - Test mode: persistent timer bar at top, question-jump grid accessible
+     via a bottom sheet (not a separate screen) so students can navigate
+     without losing their timer context.
+
+g) Previous Year Papers
+   - Filter row: Year / Board / Subject as horizontal filter chips.
+   - Each paper opens as a scrollable question view with an optional
+     "Practice as Test" button that turns the paper into a timed mock test
+     using the existing Test Mode engine (reuse component, don't rebuild).
+
+h) Score History / Performance
+   - Simple line chart per subject (score trend over time) plus a subject-
+     wise strength/weakness bar list ("You're strong in Algebra, weak in
+     Geometry") - actionable, not just decorative stats.
+
+4. AD PLACEMENT UX RULES (so ads don't feel like "vibe coded" clutter)
+---------------------------------------------------------------------------
+- No ad inside the MCQ/Test-taking flow itself - never interrupt an active
+  test (breaks trust badly for an education app).
+- Banner ads: bottom-docked on browse/list screens only (Home, Subject list,
+  Previous Year Papers list).
+- Interstitial: shown only at natural break points (after finishing a test,
+  before showing results) - max once per 10 minutes of session.
+- Rewarded video: opt-in only, clearly labeled "Watch ad to unlock," never
+  forced.
+
+5. ACCESSIBILITY
+---------------------
+- Minimum contrast ratio 4.5:1 for all body text (WCAG AA).
+- All icons paired with text labels in primary nav (never icon-only nav bar).
+- TTS feature doubles as an accessibility feature for low-vision users -
+  ensure screen-reader (TalkBack) compatibility is tested separately from
+  the in-app TTS study feature.
+- Support Android system font-size scaling up to at least 130% without
+  layout breaking.
+
+6. WHY THIS AVOIDS "VIBE CODED" LOOK
+------------------------------------------
+- Every color has a stated reason (not "picked because it looked nice").
+- Navigation mirrors the actual data hierarchy the student thinks in
+  (Board>Class>Subject>Chapter), not a generic tab bar copied from other apps.
+- Custom subject iconography instead of default icon-pack icons.
+- Deliberate light/dark neutral tones instead of pure black/white defaults.
+- Ad placement is rule-based and documented, not "put a banner wherever
+  there's space."

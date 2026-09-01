@@ -1,0 +1,105 @@
+TOPPERG - HOW TO CREATE (BUILD METHODOLOGY)
+==================================================
+This document explains the PROCESS for building TopperG, separate from
+To-do list.txt which is the actual task checklist. Read this to understand
+HOW to work, not just WHAT to build.
+
+1. CONNECT TO GITHUB FIRST
+--------------------------------
+Before writing any code:
+- Repo: https://github.com/aalamdiwan555-art/TopperG
+- Clone it locally, confirm you can push a test commit successfully before
+  starting real feature work.
+- Set up .gitignore properly (local.properties, API keys, build folders,
+  .idea/ files) - Supabase keys and any secrets must NEVER be committed in
+  plaintext.
+- Set up a simple branch strategy: main branch stays stable/working at all
+  times; feature work happens on short-lived branches (e.g., feature/tts-
+  reader) merged into main only after the bug-check step below passes.
+
+2. BREAK EVERY BIG FEATURE INTO PHASES
+--------------------------------------------
+A "feature" like Test Mode is not one task - it's several:
+  Phase example for Test Mode:
+    a. Data model (test session, question, answer state)
+    b. UI shell (screens with dummy data)
+    c. Timer logic
+    d. Real content wiring (Room + Supabase)
+    e. Scoring + result screen
+    f. Edge cases (interruption, timer expiry, empty question set)
+Never try to build a full feature in one giant pass - build in these
+smaller phases so bugs are caught early and isolated to a small change,
+not buried in a huge diff.
+
+3. THE MANDATORY CYCLE FOR EVERY PHASE
+--------------------------------------------
+BUILD -> TEST WITH REAL CONTENT -> FIND BUGS -> FIX BUGS -> RE-TEST ->
+COMMIT TO GITHUB -> UPDATE DOCS -> NEXT PHASE
+
+Details on each step:
+- BUILD: write the smallest working version of that phase.
+- TEST WITH REAL CONTENT: never test with "Lorem Ipsum" or fake placeholder
+  MCQs - use actual sample notes/questions for at least one real
+  Board+Class+Subject+Language combo, because placeholder testing hides
+  real bugs (text overflow with long regional-language strings, TTS
+  mispronunciation, etc.)
+- FIND BUGS: check null/empty states, offline behavior, rotation/
+  configuration change behavior, and slow-network behavior specifically -
+  these are the most common places bugs hide in Android apps.
+- FIX BUGS: fix immediately, don't defer to a "known issues" list unless
+  truly blocked by something outside your control (e.g., waiting on a
+  content asset).
+- RE-TEST: confirm the fix didn't break something else nearby.
+- COMMIT TO GITHUB: small, frequent, clearly-described commits > one giant
+  commit at the end of a phase. Commit message should describe WHAT changed
+  and WHY, e.g., "Fix TTS not resuming after phone call interruption."
+- UPDATE DOCS: if what you built differs even slightly from what
+  Project.txt / fechurs.txt / Page.txt / Work flow.txt originally said,
+  update those files NOW, not "later." These docs must always describe the
+  real, current app - never a stale plan.
+- NEXT PHASE: only after all of the above is genuinely complete.
+
+4. WHY THIS ORDER MATTERS (don't skip steps)
+--------------------------------------------------
+Skipping straight from BUILD to COMMIT (skipping real-content testing) is
+exactly how "it compiles but doesn't actually work right" bugs sneak into
+an app that's supposed to be "100% bug free." The whole point of this
+document is to prevent that shortcut.
+
+5. HANDLING THE BIG SCOPE (MANY BOARDS + MANY LANGUAGES)
+------------------------------------------------------------------
+Do not attempt all boards and all languages at once. Build and fully
+verify the ENTIRE app (all 20 features) working correctly for ONE board,
+ONE class, and TWO languages first (a "vertical slice"). This proves every
+part of the app actually works end-to-end before scaling out content
+breadth. Only after that vertical slice is bug-free do you scale up to more
+boards/classes/languages (Phase 12 in To-do list.txt), re-testing the UI at
+each scale-up since larger selection grids can expose new layout bugs.
+
+6. CONTENT ACCURACY PROCESS
+----------------------------------
+Because this is an education app, factual/syllabus accuracy matters more
+than in most apps. For every board's notes/MCQs/papers:
+- Source from the board's actual official syllabus/textbook where possible.
+- Previous year papers must be real papers, sourced and recorded (keep an
+  internal note of where each paper came from).
+- Do not rely purely on AI-generated content without a human review pass
+  for syllabus accuracy - a wrong answer in a study app directly hurts a
+  student's actual exam prep, which is a real-world harm to avoid.
+
+7. DEFINITION OF "READY TO COMMIT"
+----------------------------------------
+A change is ready to commit only when:
+  - It builds with zero warnings introduced by this change
+  - It was manually run and tested on-device (or emulator) with real data
+  - It handles at least: empty state, offline state, and one rotation/
+    configuration change without crashing
+  - Related docs are updated to match
+
+8. DEFINITION OF "READY TO PUSH TO PLAY STORE" (final gate)
+------------------------------------------------------------------
+  - Every item in To-do list.txt Phase 0-13 is checked off
+  - Crash-free rate target met
+  - Privacy Policy reviewed (legal review, given app is aimed at minors)
+  - At least the phase-1 board/class/language vertical slice fully content-
+    complete with zero placeholder text anywhere in that slice

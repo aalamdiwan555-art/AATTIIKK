@@ -1,0 +1,151 @@
+TOPPERG - FEATURES SPECIFICATION (fechurs.txt)
+==================================================
+Each feature below lists: what it does, why it exists, and the minimum
+"done" criteria used during bug-check (see To-do list.txt).
+
+1. PERMISSIONS ONBOARDING
+   What: Requests only the permissions actually needed - Storage (offline
+   downloads), Notifications (study reminders). NOT contacts, camera, mic,
+   location unless a future feature needs them.
+   Why: Trust + Play Store policy compliance.
+   Done when: each permission has a pre-prompt explanation screen, and app
+   works (with reduced features) if user denies a permission.
+
+2. BOARD SELECTION
+   What: Grid of all supported boards - CBSE, ICSE, and state boards
+   (example set: BSEB-Bihar, UPMSP-UP, MPBSE-MP, RBSE-Rajasthan, GSEB-
+   Gujarat, MBSE-Meghalaya, WBBSE-WestBengal, JAC-Jharkhand, HBSE-Haryana,
+   PSEB-Punjab, TNBSE-TamilNadu, KSEEB-Karnataka, and more added in phases).
+   Why: This is the core differentiator vs CBSE-only competitor apps.
+   Done when: selecting a board correctly filters ALL downstream content
+   (subjects/chapters/MCQs/papers) to that board only.
+
+3. CLASS SELECTION (1-12)
+   What: Chip selector for grade level.
+   Done when: content list changes correctly for every class 1-12, tested
+   individually (not just spot-checked at 6 and 10).
+
+4. LANGUAGE SELECTION
+   What: Full app UI language + content language, shown in native script.
+   Launch languages (phase 1): Hindi, English, Marathi, Bengali.
+   Phase 2 languages: Tamil, Telugu, Gujarati, Kannada, Malayalam, Punjabi,
+   Odia, Assamese, Urdu.
+   Done when: switching language changes both UI chrome text AND content
+   text, with no leftover hardcoded English strings anywhere (audit with a
+   string-resource lint pass).
+
+5. SUBJECT-WISE STUDY NOTES ("SAVDHYAY")
+   What: Structured self-study notes per subject, broken into chapters,
+   written to match the selected board's syllabus.
+   Done when: every chapter listed has actual reviewed content attached -
+   zero "coming soon" placeholders in the launch board/class/language set.
+
+6. TEXT-TO-SPEECH (TTS) READER
+   What: Converts any note/chapter text into spoken audio using Android's
+   TextToSpeech engine, matched to the selected content language (needs a
+   TTS voice pack available for that language - verify Android TTS engine
+   language coverage per language before promising it in UI).
+   Controls: play/pause, 0.75x-1.5x speed, skip paragraph, sentence
+   highlight sync.
+   Done when: works offline (device TTS engine, not cloud-dependent) for at
+   least the phase-1 language set, and gracefully tells the user if a
+   language's voice pack isn't installed on their device (with a link to
+   install it).
+
+7. MCQ PRACTICE MODE
+   What: Per-chapter multiple choice question sets, untimed, with instant
+   feedback + explanation per question.
+   Done when: question bank has no duplicate/broken questions, explanations
+   are present for 100% of questions (not just answers).
+
+8. TEST MODE (MOCK TEST)
+   What: Timed test combining multiple chapters/whole subject, auto-graded,
+   results screen with score + review of wrong answers.
+   Done when: timer accuracy verified, score calculation verified against
+   manual count, app state survives interruption (e.g., phone call) without
+   losing test progress.
+
+9. PREVIOUS YEAR QUESTION PAPERS
+   What: Bank of real past exam papers filterable by Board/Class/Subject/
+   Year, viewable as-is or convertible into a timed "Practice as Test."
+   Done when: papers are sourced/verified as accurate to the real exam
+   (source citation stored per paper for internal record), no scanned-image-
+   only papers without accessible text (needed for TTS + search to work).
+
+10. SCORE HISTORY / PERFORMANCE TRACKER
+    What: Stores every MCQ/Test attempt locally (Room) and synced (Supabase)
+    to show trend charts and subject strength/weakness breakdown.
+    Done when: data persists across app reinstall if user is logged in
+    (Supabase-backed), and survives offline use then syncs on reconnect.
+
+11. BOOKMARKS / SAVE FOR LATER
+    What: Bookmark any note, MCQ set, or paper for quick access from a
+    dedicated Saved tab.
+    Done when: bookmarks persist locally even without login.
+
+12. SEARCH
+    What: Search across notes, MCQs, and papers within the user's selected
+    Board/Class (with option to expand search to all boards).
+    Done when: search returns results in under 1 second on-device for local
+    content, and handles regional-language query text correctly.
+
+13. OFFLINE DOWNLOAD
+    What: Download a subject/chapter's notes+MCQs for offline access,
+    stored via Room + local file storage.
+    Done when: airplane-mode test passes - downloaded content fully usable
+    with zero network calls, including TTS.
+
+14. DAILY STUDY REMINDER
+    What: Local notification at a user-set time nudging them to study /
+    continue a streak.
+    Done when: notification respects Android 13+ notification permission
+    flow correctly, and doesn't fire if user disabled it in-app separately
+    from OS-level permission.
+
+15. SHARE FEATURE
+    What: Share a note or MCQ result card via WhatsApp/other apps (Android
+    share sheet), auto-generates a simple shareable image/text summary.
+    Done when: shared content renders correctly outside the app (test in
+    actual WhatsApp, not just simulator).
+
+16. DARK MODE
+    What: Full dark theme using the neutral tones defined in UI+UX.txt (not
+    default Compose dark values).
+    Done when: every screen manually checked in dark mode - no white-on-
+    white or invisible-text regressions.
+
+17. ADS (BANNER / INTERSTITIAL / REWARDED)
+    What: Unity Ads (with AdMob mediation recommended) per placement rules
+    in UI+UX.txt section 4.
+    Done when: ad frequency capping verified, no ads shown during active
+    Test Mode, rewarded ad unlock logic verified (user actually gets what
+    was promised after watching).
+
+18. SETTINGS
+    What: Change Board/Class/Language, manage downloads, notification
+    toggle, TTS speed default, dark mode toggle, About/Contact, delete
+    account/data option (privacy compliance).
+    Done when: every setting change takes effect immediately without
+    requiring app restart.
+
+19. ADMIN-MANAGED CONTENT SYNC
+    What: Content (notes, MCQs, papers) lives in Supabase and syncs to the
+    app - admins can add a new board/language/chapter without an app store
+    release.
+    Done when: a content update pushed in Supabase appears in the app after
+    normal sync (pull-to-refresh or background sync), verified end-to-end
+    by an actual admin content push, not just a mocked API call.
+
+20. LOGIN / ACCOUNT (Supabase Auth)
+    What: Optional login (email or phone OTP) to sync score history and
+    bookmarks across devices; app remains usable as guest without login.
+    Done when: guest-to-logged-in data migration works (existing local
+    scores/bookmarks attach to account on login, not lost).
+
+FUTURE / V2 FEATURES (documented, not built for launch)
+------------------------------------------------------------
+- Parent dashboard (view child's test scores remotely)
+- Leaderboard / class rank among app users (gamification)
+- Live doubt-solving chat or forum
+- Short video lessons per chapter
+- Ad-free Pro subscription tier
