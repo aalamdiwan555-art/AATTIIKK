@@ -18,6 +18,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.topperg.ui.navigation.Screen
 
@@ -49,7 +50,7 @@ fun BottomNavBar(
 ) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 4
+        tonalElevation = 4.dp
     ) {
         bottomNavItems.forEach { item ->
             val selected = currentRoute == item.route
