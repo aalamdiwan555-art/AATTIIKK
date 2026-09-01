@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.topperg.ui.components.BannerAd
 import com.topperg.ui.components.EmptyState
 import com.topperg.ui.theme.Accent
